@@ -1,5 +1,8 @@
 // Copyright (c) 2023 Franka Robotics GmbH
 // Use of this source code is governed by the Apache-2.0 license, see LICENSE
+
+// cartesian_velocity_example_controller.cpp
+
 #include <franka_example_controllers/cartesian_velocity_example_controller.h>
 
 #include <array>
@@ -12,6 +15,8 @@
 #include <hardware_interface/joint_command_interface.h>
 #include <pluginlib/class_list_macros.h>
 #include <ros/ros.h>
+
+#include <geometry_msgs/Twist.h>
 
 namespace franka_example_controllers {
 
@@ -66,7 +71,16 @@ bool CartesianVelocityExampleController::init(hardware_interface::RobotHW* robot
     return false;
   }
 
+
+  // Subscritor del comando de velocidad
+  ros::NodeHandle n;
+  velocity_subscriber_ = n.subscribe<geometry_msgs::Twist>("cmdVel", 1, &CartesianVelocityExampleController::cmdVelCallback, this);
+
   return true;
+}
+
+void CartesianVelocityExampleController::cmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg){
+  cmd_vel_ = *msg;
 }
 
 void CartesianVelocityExampleController::starting(const ros::Time& /* time */) {
@@ -86,7 +100,13 @@ void CartesianVelocityExampleController::update(const ros::Time& /* time */,
   double v_x = std::cos(angle) * v;
   double v_z = -std::sin(angle) * v;
   std::array<double, 6> command = {{v_x, 0.0, v_z, 0.0, 0.0, 0.0}};
+
+  // Añadir subscriptor a un command publicado por el mando
+  // Añadir transformación de cmd_vel_ [geometry_msgs::Twist] a command [std::array<double, 6> command]
+
   velocity_cartesian_handle_->setCommand(command);
+
+
 }
 
 void CartesianVelocityExampleController::stopping(const ros::Time& /*time*/) {

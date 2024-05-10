@@ -1,5 +1,6 @@
 // Copyright (c) 2023 Franka Robotics GmbH
 // Use of this source code is governed by the Apache-2.0 license, see LICENSE
+// cartesian_velocity_example_controller.h
 #pragma once
 
 #include <memory>
@@ -12,6 +13,8 @@
 #include <ros/node_handle.h>
 #include <ros/time.h>
 
+#include <geometry_msgs/Twist.h>
+
 namespace franka_example_controllers {
 
 class CartesianVelocityExampleController : public controller_interface::MultiInterfaceController<
@@ -22,6 +25,11 @@ class CartesianVelocityExampleController : public controller_interface::MultiInt
   void update(const ros::Time&, const ros::Duration& period) override;
   void starting(const ros::Time&) override;
   void stopping(const ros::Time&) override;
+
+  void cmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg);
+
+  geometry_msgs::Twist cmd_vel_;
+  ros::Subscriber velocity_subscriber_;
 
  private:
   franka_hw::FrankaVelocityCartesianInterface* velocity_cartesian_interface_;
