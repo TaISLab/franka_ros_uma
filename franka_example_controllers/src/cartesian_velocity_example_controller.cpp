@@ -74,7 +74,7 @@ bool CartesianVelocityExampleController::init(hardware_interface::RobotHW* robot
 
   // Subscritor del comando de velocidad
   ros::NodeHandle n;
-  velocity_subscriber_ = n.subscribe<geometry_msgs::Twist>("cmdVel", 1, &CartesianVelocityExampleController::cmdVelCallback, this);
+  velocity_subscriber_ = n.subscribe<geometry_msgs::Twist>("cmd_vel", 1, &CartesianVelocityExampleController::cmdVelCallback, this);
 
   return true;
 }
