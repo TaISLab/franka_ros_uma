@@ -89,21 +89,21 @@ void CartesianVelocityExampleController::starting(const ros::Time& /* time */) {
 
 void CartesianVelocityExampleController::update(const ros::Time& /* time */,
                                                 const ros::Duration& period) {
-  elapsed_time_ += period;
-
-  double time_max = 4.0;
-  double v_max = 0.05;
-  double angle = M_PI / 4.0;
-  double cycle = std::floor(
-      pow(-1.0, (elapsed_time_.toSec() - std::fmod(elapsed_time_.toSec(), time_max)) / time_max));
-  double v = cycle * v_max / 2.0 * (1.0 - std::cos(2.0 * M_PI / time_max * elapsed_time_.toSec()));
-  double v_x = std::cos(angle) * v;
-  double v_z = -std::sin(angle) * v;
-  std::array<double, 6> command = {{v_x, 0.0, v_z, 0.0, 0.0, 0.0}};
+  // elapsed_time_ += period;
+  // double time_max = 4.0;
+  // double v_max = 0.05;
+  // double angle = M_PI / 4.0;
+  // double cycle = std::floor(
+  //     pow(-1.0, (elapsed_time_.toSec() - std::fmod(elapsed_time_.toSec(), time_max)) / time_max));
+  // double v = cycle * v_max / 2.0 * (1.0 - std::cos(2.0 * M_PI / time_max * elapsed_time_.toSec()));
+  // double v_x = std::cos(angle) * v;
+  // double v_z = -std::sin(angle) * v;
+  // std::array<double, 6> command = {{v_x, 0.0, v_z, 0.0, 0.0, 0.0}};
 
   // Añadir subscriptor a un command publicado por el mando
   // Añadir transformación de cmd_vel_ [geometry_msgs::Twist] a command [std::array<double, 6> command]
 
+  std::array<double, 6> command = {{cmd_vel_.linear.x, cmd_vel_.linear.y, cmd_vel_.linear.z, cmd_vel_.angular.x, cmd_vel_.angular.y, cmd_vel_.angular.z}};
   velocity_cartesian_handle_->setCommand(command);
 
 
