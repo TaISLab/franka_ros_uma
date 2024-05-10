@@ -103,7 +103,8 @@ void CartesianVelocityExampleController::update(const ros::Time& /* time */,
   // Añadir subscriptor a un command publicado por el mando
   // Añadir transformación de cmd_vel_ [geometry_msgs::Twist] a command [std::array<double, 6> command]
 
-  std::array<double, 6> command = {{cmd_vel_.linear.x, cmd_vel_.linear.y, cmd_vel_.linear.z, cmd_vel_.angular.x, cmd_vel_.angular.y, cmd_vel_.angular.z}};
+  // std::array<double, 6> command = {{cmd_vel_.linear.x, cmd_vel_.linear.y, cmd_vel_.linear.z, cmd_vel_.angular.x, cmd_vel_.angular.y, cmd_vel_.angular.z}};
+  std::array<double, 6> command = {{0.1, 0.0, 0.0, 0.0, 0.0, 0.0}};
   velocity_cartesian_handle_->setCommand(command);
 
 
