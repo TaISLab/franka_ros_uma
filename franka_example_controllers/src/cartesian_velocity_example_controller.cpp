@@ -104,7 +104,14 @@ void CartesianVelocityExampleController::update(const ros::Time& /* time */,
   // Añadir transformación de cmd_vel_ [geometry_msgs::Twist] a command [std::array<double, 6> command]
 
   // std::array<double, 6> command = {{cmd_vel_.linear.x, cmd_vel_.linear.y, cmd_vel_.linear.z, cmd_vel_.angular.x, cmd_vel_.angular.y, cmd_vel_.angular.z}};
-  std::array<double, 6> command = {{0.01, 0.0, 0.0, 0.0, 0.0, 0.0}};
+  
+  elapsed_time_ += period;
+
+
+  double v_x =  0.001 * elapsed_time_;
+  
+  
+  std::array<double, 6> command = {{v_x, 0.0, 0.0, 0.0, 0.0, 0.0}};
   velocity_cartesian_handle_->setCommand(command);
 
 
