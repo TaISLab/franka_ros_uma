@@ -108,7 +108,7 @@ void CartesianVelocityExampleController::update(const ros::Time& /* time */,
   elapsed_time_ += period;
 
 
-  double v_x =  0.01 * 2 * elapsed_time_.toSec();
+  double v_x =  0.01 * 10 * elapsed_time_.toSec();
 
   ROS_INFO("V_x: %.2f", v_x);
   
