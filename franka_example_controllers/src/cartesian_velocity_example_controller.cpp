@@ -110,7 +110,7 @@ void CartesianVelocityExampleController::update(const ros::Time& /* time */,
 
   double v_x =  0.01 * 2 * elapsed_time_.toSec();
 
-  ROS_INFO("V_x: %d", v_x);
+  ROS_INFO("V_x: %.2f", v_x);
   
   
   std::array<double, 6> command = {{v_x, 0.0, 0.0, 0.0, 0.0, 0.0}};
