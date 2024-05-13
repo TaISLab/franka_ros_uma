@@ -89,8 +89,8 @@ void CartesianVelocityExampleController::starting(const ros::Time& /* time */) {
 
 void CartesianVelocityExampleController::update(const ros::Time& /* time */,
                                                 const ros::Duration& period) {
-  // elapsed_time_ += period;
-  // double time_max = 4.0;
+  // elapsed_time_ += period; //incrementar el tiempo transcurrido
+  // double time_max = 4.0; //te
   // double v_max = 0.05;
   // double angle = M_PI / 4.0;
   // double cycle = std::floor(
@@ -108,7 +108,9 @@ void CartesianVelocityExampleController::update(const ros::Time& /* time */,
   elapsed_time_ += period;
 
 
-  double v_x =  0.005 * elapsed_time_.toSec();
+  double v_x =  0.01 * 2 * elapsed_time_.toSec();
+
+  ROS_INFO("V_x: %d", v_x)
   
   
   std::array<double, 6> command = {{v_x, 0.0, 0.0, 0.0, 0.0, 0.0}};
