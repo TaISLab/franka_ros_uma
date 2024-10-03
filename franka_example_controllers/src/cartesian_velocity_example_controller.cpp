@@ -86,7 +86,7 @@ namespace franka_example_controllers
 
     // Subscritor del comando de velocidad
     ros::NodeHandle n;
-    velocity_subscriber_ = n.subscribe<geometry_msgs::Twist>("cmd_vel", 1, &CartesianVelocityExampleController::cmdVelCallback, this);
+    velocity_subscriber_ = n.subscribe<geometry_msgs::Twist>("cmd_franka_vel", 1, &CartesianVelocityExampleController::cmdVelCallback, this);
 
     return true;
   }
